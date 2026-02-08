@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Lotto 6/45</title>
+    <title>Dinner Decider</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -11,10 +11,10 @@
     <div class="main-wrapper">
         <header class="app-header">
             <div class="logo-area">
-                <span class="logo-icon">🎰</span>
-                <h1>Prime Lotto</h1>
+                <span class="logo-icon">🍽️</span>
+                <h1>Dinner Decider</h1>
             </div>
-            <p class="subtitle">Premium Number Generator</p>
+            <p class="subtitle">What's for Dinner Tonight?</p>
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
                     <input type="checkbox" id="checkbox" />
@@ -25,25 +25,26 @@
 
         <main class="card">
             <div class="card-header">
-                <h2>Lucky Numbers</h2>
+                <h2>Your Recommendation</h2>
                 <span class="date-badge" id="current-date">2026.02.08</span>
             </div>
             
-            <div class="lotto-machine">
-                <div id="numbers-container" class="numbers-container">
-                    <!-- Numbers will be generated here -->
+            <div class="dinner-recommendation">
+                <div id="recommendation-container" class="recommendation-container">
+                    <!-- Dinner recommendation will be displayed here -->
+                    <p class="initial-message">Click 'Decide' to find your dinner!</p>
                 </div>
             </div>
 
             <div class="card-footer">
                 <button id="generate-btn" class="btn-primary">
-                    <span class="btn-icon">✨</span> Generate New Numbers
+                    <span class="btn-icon">✨</span> Decide My Dinner!
                 </button>
             </div>
         </main>
 
         <footer class="app-footer">
-            <p>&copy; 2026 Prime Lotto Generator. For entertainment purposes only.</p>
+            <p>&copy; 2026 Dinner Decider. Enjoy your meal!</p>
         </footer>
     </div>
     <script src="main.js"></script>

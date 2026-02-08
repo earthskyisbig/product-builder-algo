@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generate-btn');
-    const numbersContainer = document.getElementById('numbers-container');
+    const recommendationContainer = document.getElementById('recommendation-container');
     const dateElement = document.getElementById('current-date');
     const themeSwitch = document.getElementById('checkbox'); // Get the theme switch
 
@@ -34,52 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
         day: 'numeric'
     });
 
-    const getBallColor = (number) => {
-        if (number <= 10) return '#fbc400'; // Yellow
-        if (number <= 20) return '#69c8f2'; // Blue
-        if (number <= 30) return '#ff7272'; // Red
-        if (number <= 40) return '#a3a3a3'; // Gray
-        return '#b0d840';      // Green
-    };
+    const dinnerRecommendations = [
+        "Spaghetti Carbonara", "Chicken Stir-fry", "Beef Tacos", "Lentil Soup",
+        "Salmon with Roasted Vegetables", "Pizza (homemade or delivery)", "Sushi",
+        "Classic Cheeseburger", "Vegetable Curry", "Shepherd's Pie",
+        "Pasta Primavera", "Grilled Cheese and Tomato Soup", "Korean BBQ",
+        "Falafel Wraps", "Chicken Caesar Salad", "Mushroom Risotto",
+        "Fish and Chips", "Pad Thai", "Enchiladas", "Pork Chops with Apple Sauce",
+        "Shrimp Scampi", "Black Bean Burgers", "Ramen", "Mediterranean Mezze Platter",
+        "Chicken and Dumplings"
+    ];
 
-    const generateNumbers = () => {
-        // Clear previous numbers
-        numbersContainer.innerHTML = '';
+    const generateRecommendation = () => {
+        // Clear previous recommendation or initial message
+        recommendationContainer.innerHTML = '';
         generateBtn.disabled = true; // Prevent double clicking during animation
 
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                const row = document.createElement('div');
-                row.classList.add('lotto-row');
+        const randomIndex = Math.floor(Math.random() * dinnerRecommendations.length);
+        const recommendation = dinnerRecommendations[randomIndex];
 
-                const numbers = new Set();
-                while (numbers.size < 6) {
-                    const randomNumber = Math.floor(Math.random() * 45) + 1;
-                    numbers.add(randomNumber);
-                }
+        const recommendationText = document.createElement('p');
+        recommendationText.textContent = recommendation;
+        recommendationText.classList.add('fade-in'); // Add a class for animation
 
-                const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-                sortedNumbers.forEach(number => {
-                    const ball = document.createElement('div');
-                    ball.classList.add('lotto-ball');
-                    ball.style.backgroundColor = getBallColor(number);
-                    ball.textContent = number;
-                    row.appendChild(ball);
-                });
-
-                numbersContainer.appendChild(row);
-                
-                // Re-enable button after last row
-                if (i === 4) {
-                    generateBtn.disabled = false;
-                }
-            }, i * 200); // 200ms delay for each row
-        }
+        recommendationContainer.appendChild(recommendationText);
+        
+        // Re-enable button after a short delay
+        setTimeout(() => {
+            generateBtn.disabled = false;
+        }, 500); // 500ms delay for animation effect
     };
 
-    generateBtn.addEventListener('click', generateNumbers);
+    generateBtn.addEventListener('click', generateRecommendation);
 
-    // Generate numbers on initial load
-    generateNumbers();
+    // Display initial message on load
+    recommendationContainer.innerHTML = '<p class="initial-message">Click \'Decide\' to find your dinner!</p>';
 });
