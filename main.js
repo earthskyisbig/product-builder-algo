@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recommendationContainer = document.getElementById('recommendation-container');
     const dateElement = document.getElementById('current-date');
     const themeSwitch = document.getElementById('checkbox');
+    const mealImage = document.getElementById('meal-image'); // Reference to the meal image
 
     // Calendar Elements
     const prevMonthBtn = document.getElementById('prevMonth');
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentDisplayedDate = new Date(); // Month and year for calendar display
     let selectedCalendarDay = null; // To store the currently selected day in the calendar
-    let currentRecommendation = { category: '', dish: '' }; // Stores the last generated recommendation
+    let currentRecommendation = { category: '', dish: '', imageUrl: '' }; // Stores the last generated recommendation
 
     // Load recommendations from Local Storage
     const loadDailyRecommendations = () => {
@@ -69,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const generateRecommendation = () => {
-        recommendationContainer.innerHTML = '';
+        recommendationContainer.innerHTML = ''; // Clear previous text
+        mealImage.style.display = 'none'; // Hide image initially
         generateBtn.disabled = true;
 
         const categories = Object.keys(dinnerRecommendations);
@@ -79,7 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomDishIndex = Math.floor(Math.random() * dishes.length);
         const recommendation = dishes[randomDishIndex];
 
-        currentRecommendation = { category: selectedCategory, dish: recommendation };
+        // Generate image URL
+        const imageUrl = `https://source.unsplash.com/random/400x300/?${recommendation.replace(/\s/g, '-')}`;
+
+        currentRecommendation = { category: selectedCategory, dish: recommendation, imageUrl: imageUrl };
 
         const categoryText = document.createElement('p');
         categoryText.textContent = selectedCategory;
@@ -92,6 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
         recommendationContainer.appendChild(categoryText);
         recommendationContainer.appendChild(recommendationText);
         
+        // Update and show image
+        mealImage.src = imageUrl;
+        mealImage.alt = `Image of ${recommendation}`;
+        mealImage.style.display = 'block';
+
         setTimeout(() => {
             generateBtn.disabled = false;
         }, 500);
@@ -99,8 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     generateBtn.addEventListener('click', generateRecommendation);
 
-    // Initial message for recommendation
+    // Initial message for recommendation and hide image
     recommendationContainer.innerHTML = '<p class="initial-message">Click \'Decide\' to find your dinner!</p>';
+    mealImage.style.display = 'none';
 
     // Calendar Logic
     const renderCalendar = () => {
