@@ -1,59 +1,223 @@
+:root {
+    --primary-color: #4facfe;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-gradient: linear-gradient(to right, #243949 0%, #517fa4 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-main: #333;
+    --text-secondary: #666;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-inset: inset -3px -3px 7px rgba(0,0,0,0.3), inset 2px 2px 5px rgba(255,255,255,0.4);
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    color: var(--text-main);
 }
 
-.container {
+.main-wrapper {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.app-header {
     text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 2.5rem;
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    margin: 5px 0 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* Card */
+.card {
+    background: var(--card-bg);
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.card-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.date-badge {
+    background: #f0f2f5;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 .lotto-machine {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.lotto-numbers {
+    padding: 30px 20px;
+    background: #f8f9fa;
+    min-height: 300px;
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.numbers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Lotto Rows & Balls */
+.lotto-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0; /* Hidden initially */
+    transform: translateY(20px);
 }
 
 .lotto-ball {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-#generate-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 0.5rem;
     font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: 700;
+    color: white;
+    box-shadow: var(--shadow-inset), 0 5px 10px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.2);
 }
 
-#generate-btn:hover {
-    background-color: #45a049;
+.lotto-ball::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 15px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    pointer-events: none;
+}
+
+/* Footer & Button */
+.card-footer {
+    padding: 20px 30px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.app-footer {
+    margin-top: 30px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .lotto-ball {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .lotto-row {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
 }

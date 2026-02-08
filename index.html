@@ -3,17 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotto Number Generator</title>
+    <title>Prime Lotto 6/45</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Lotto Number Generator</h1>
-        <div class="lotto-machine">
-            <div id="numbers-container" class="numbers-container">
+    <div class="main-wrapper">
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🎰</span>
+                <h1>Prime Lotto</h1>
             </div>
-        </div>
-        <button id="generate-btn">Generate Numbers</button>
+            <p class="subtitle">Premium Number Generator</p>
+        </header>
+
+        <main class="card">
+            <div class="card-header">
+                <h2>Lucky Numbers</h2>
+                <span class="date-badge" id="current-date">2026.02.08</span>
+            </div>
+            
+            <div class="lotto-machine">
+                <div id="numbers-container" class="numbers-container">
+                    <!-- Numbers will be generated here -->
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button id="generate-btn" class="btn-primary">
+                    <span class="btn-icon">✨</span> Generate New Numbers
+                </button>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 Prime Lotto Generator. For entertainment purposes only.</p>
+        </footer>
     </div>
     <script src="main.js"></script>
 </body>
