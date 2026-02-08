@@ -57,16 +57,76 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const dinnerRecommendations = {
-        "Korean": ["Kimchi Stew", "Bibimbap", "Bulgogi", "Japchae", "Tteokbokki"],
-        "Italian": ["Spaghetti Carbonara", "Pizza Margherita", "Lasagna", "Risotto", "Fettuccine Alfredo"],
-        "Mexican": ["Beef Tacos", "Enchiladas", "Quesadillas", "Burritos", "Chiles Rellenos"],
-        "Indian": ["Chicken Curry", "Dal Makhani", "Paneer Butter Masala", "Biryani", "Samosa"],
-        "Japanese": ["Sushi", "Ramen", "Tempura", "Teriyaki Chicken", "Udon"],
-        "Chinese": ["Sweet and Sour Pork", "Chow Mein", "Mapo Tofu", "Kung Pao Chicken", "Dumplings"],
-        "American": ["Classic Cheeseburger", "BBQ Ribs", "Fried Chicken", "Mac and Cheese", "Hot Dogs"],
-        "Mediterranean": ["Falafel Wraps", "Hummus and Pita", "Greek Salad", "Moussaka", "Shawarma"],
-        "Thai": ["Pad Thai", "Green Curry", "Tom Yum Soup", "Massaman Curry", "Spring Rolls"],
-        "French": ["Coq au Vin", "Beef Bourguignon", "Croque Monsieur", "Ratatouille", "French Onion Soup"]
+        "Korean": [
+            { name: "Kimchi Stew", imageUrl: "https://source.unsplash.com/random/400x300/?kimchi-stew" },
+            { name: "Bibimbap", imageUrl: "https://source.unsplash.com/random/400x300/?bibimbap" },
+            { name: "Bulgogi", imageUrl: "https://source.unsplash.com/random/400x300/?bulgogi" },
+            { name: "Japchae", imageUrl: "https://source.unsplash.com/random/400x300/?japchae" },
+            { name: "Tteokbokki", imageUrl: "https://source.unsplash.com/random/400x300/?tteokbokki" }
+        ],
+        "Italian": [
+            { name: "Spaghetti Carbonara", imageUrl: "https://source.unsplash.com/random/400x300/?spaghetti-carbonara" },
+            { name: "Pizza Margherita", imageUrl: "https://source.unsplash.com/random/400x300/?pizza-margherita" },
+            { name: "Lasagna", imageUrl: "https://source.unsplash.com/random/400x300/?lasagna" },
+            { name: "Risotto", imageUrl: "https://source.unsplash.com/random/400x300/?risotto" },
+            { name: "Fettuccine Alfredo", imageUrl: "https://source.unsplash.com/random/400x300/?fettuccine-alfredo" }
+        ],
+        "Mexican": [
+            { name: "Beef Tacos", imageUrl: "https://source.unsplash.com/random/400x300/?beef-tacos" },
+            { name: "Enchiladas", imageUrl: "https://source.unsplash.com/random/400x300/?enchiladas" },
+            { name: "Quesadillas", imageUrl: "https://source.unsplash.com/random/400x300/?quesadillas" },
+            { name: "Burritos", imageUrl: "https://source.unsplash.com/random/400x300/?burritos" },
+            { name: "Chiles Rellenos", imageUrl: "https://source.unsplash.com/random/400x300/?chiles-rellenos" }
+        ],
+        "Indian": [
+            { name: "Chicken Curry", imageUrl: "https://source.unsplash.com/random/400x300/?chicken-curry" },
+            { name: "Dal Makhani", imageUrl: "https://source.unsplash.com/random/400x300/?dal-makhani" },
+            { name: "Paneer Butter Masala", imageUrl: "https://source.unsplash.com/random/400x300/?paneer-butter-masala" },
+            { name: "Biryani", imageUrl: "https://source.unsplash.com/random/400x300/?biryani" },
+            { name: "Samosa", imageUrl: "https://source.unsplash.com/random/400x300/?samosa" }
+        ],
+        "Japanese": [
+            { name: "Sushi", imageUrl: "https://source.unsplash.com/random/400x300/?sushi" },
+            { name: "Ramen", imageUrl: "https://source.unsplash.com/random/400x300/?ramen" },
+            { name: "Tempura", imageUrl: "https://source.unsplash.com/random/400x300/?tempura" },
+            { name: "Teriyaki Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?teriyaki-chicken" },
+            { name: "Udon", imageUrl: "https://source.unsplash.com/random/400x300/?udon" }
+        ],
+        "Chinese": [
+            { name: "Sweet and Sour Pork", imageUrl: "https://source.unsplash.com/random/400x300/?sweet-sour-pork" },
+            { name: "Chow Mein", imageUrl: "https://source.unsplash.com/random/400x300/?chow-mein" },
+            { name: "Mapo Tofu", imageUrl: "https://source.unsplash.com/random/400x300/?mapo-tofu" },
+            { name: "Kung Pao Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?kung-pao-chicken" },
+            { name: "Dumplings", imageUrl: "https://source.unsplash.com/random/400x300/?dumplings" }
+        ],
+        "American": [
+            { name: "Classic Cheeseburger", imageUrl: "https://source.unsplash.com/random/400x300/?cheeseburger" },
+            { name: "BBQ Ribs", imageUrl: "https://source.unsplash.com/random/400x300/?bbq-ribs" },
+            { name: "Fried Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?fried-chicken" },
+            { name: "Mac and Cheese", imageUrl: "https://source.unsplash.com/random/400x300/?mac-cheese" },
+            { name: "Hot Dogs", imageUrl: "https://source.unsplash.com/random/400x300/?hot-dogs" }
+        ],
+        "Mediterranean": [
+            { name: "Falafel Wraps", imageUrl: "https://source.unsplash.com/random/400x300/?falafel-wraps" },
+            { name: "Hummus and Pita", imageUrl: "https://source.unsplash.com/random/400x300/?hummus-pita" },
+            { name: "Greek Salad", imageUrl: "https://source.unsplash.com/random/400x300/?greek-salad" },
+            { name: "Moussaka", imageUrl: "https://source.unsplash.com/random/400x300/?moussaka" },
+            { name: "Shawarma", imageUrl: "https://source.unsplash.com/random/400x300/?shawarma" }
+        ],
+        "Thai": [
+            { name: "Pad Thai", imageUrl: "https://source.unsplash.com/random/400x300/?pad-thai" },
+            { name: "Green Curry", imageUrl: "https://source.unsplash.com/random/400x300/?green-curry" },
+            { name: "Tom Yum Soup", imageUrl: "https://source.unsplash.com/random/400x300/?tom-yum-soup" },
+            { name: "Massaman Curry", imageUrl: "https://source.unsplash.com/random/400x300/?massaman-curry" },
+            { name: "Spring Rolls", imageUrl: "https://source.unsplash.com/random/400x300/?spring-rolls" }
+        ],
+        "French": [
+            { name: "Coq au Vin", imageUrl: "https://source.unsplash.com/random/400x300/?coq-au-vin" },
+            { name: "Beef Bourguignon", imageUrl: "https://source.unsplash.com/random/400x300/?beef-bourguignon" },
+            { name: "Croque Monsieur", imageUrl: "https://source.unsplash.com/random/400x300/?croque-monsieur" },
+            { name: "Ratatouille", imageUrl: "https://source.unsplash.com/random/400x300/?ratatouille" },
+            { name: "French Onion Soup", imageUrl: "https://source.unsplash.com/random/400x300/?french-onion-soup" }
+        ]
     };
 
     const generateRecommendation = () => {
@@ -79,19 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCategory = categories[randomCategoryIndex];
         const dishes = dinnerRecommendations[selectedCategory];
         const randomDishIndex = Math.floor(Math.random() * dishes.length);
-        const recommendation = dishes[randomDishIndex];
+        const selectedDish = dishes[randomDishIndex]; // Get the full dish object
 
-        // Generate image URL
-        const imageUrl = `https://source.unsplash.com/random/400x300/?${recommendation.replace(/\s/g, '-')}`;
+        const recommendationName = selectedDish.name;
+        const imageUrl = selectedDish.imageUrl || `https://source.unsplash.com/random/400x300/?${recommendationName.replace(/\s/g, '-')}`;
 
-        currentRecommendation = { category: selectedCategory, dish: recommendation, imageUrl: imageUrl };
+        currentRecommendation = { category: selectedCategory, dish: recommendationName, imageUrl: imageUrl };
 
         const categoryText = document.createElement('p');
         categoryText.textContent = selectedCategory;
         categoryText.classList.add('category-text', 'fade-in');
 
         const recommendationText = document.createElement('p');
-        recommendationText.textContent = recommendation;
+        recommendationText.textContent = recommendationName;
         recommendationText.classList.add('recommendation-text', 'fade-in');
 
         recommendationContainer.appendChild(categoryText);
@@ -99,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update and show image
         mealImage.src = imageUrl;
-        mealImage.alt = `Image of ${recommendation}`;
+        mealImage.alt = `Image of ${recommendationName}`;
         mealImage.style.display = 'block';
 
         setTimeout(() => {
