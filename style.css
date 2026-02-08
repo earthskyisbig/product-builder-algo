@@ -13,6 +13,12 @@
     --date-badge-bg: #f0f2f5;
     --lotto-machine-bg: #f8f9fa;
     --lotto-row-bg: white;
+    --calendar-day-bg: #fff;
+    --calendar-day-hover-bg: #f0f0f0;
+    --calendar-day-active-bg: var(--primary-color);
+    --calendar-day-text: var(--text-main);
+    --calendar-day-inactive-text: #ccc;
+    --calendar-border-color: rgba(0,0,0,0.05);
 }
 
 body.dark-mode {
@@ -30,6 +36,12 @@ body.dark-mode {
     --date-badge-bg: #4a5a6a;
     --lotto-machine-bg: #3f5164;
     --lotto-row-bg: #3f5164;
+    --calendar-day-bg: #2d3436;
+    --calendar-day-hover-bg: #3c4446;
+    --calendar-day-active-bg: var(--primary-color);
+    --calendar-day-text: var(--text-main);
+    --calendar-day-inactive-text: #555;
+    --calendar-border-color: rgba(255,255,255,0.1);
 }
 
 body {
@@ -51,6 +63,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px; /* Space between card and calendar */
 }
 
 /* Header */
@@ -185,6 +198,7 @@ h1 {
     background: var(--lotto-machine-bg); /* Reusing for similar background purpose */
     min-height: 300px;
     display: flex;
+    flex-direction: column; /* To stack category and recommendation */
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -216,6 +230,20 @@ h1 {
     font-size: 1.2rem;
     color: var(--text-secondary);
     font-style: italic;
+}
+
+.category-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.recommendation-text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
 }
 
 /* Footer & Button */
@@ -260,9 +288,127 @@ h1 {
 }
 
 /* Animations */
-@keyframes slideUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Calendar Styles */
+.calendar-section {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-nav .date-badge {
+    min-width: 150px;
+    text-align: center;
+}
+
+.calendar-nav .btn-icon {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.calendar-nav .btn-icon:hover {
+    opacity: 0.8;
+}
+
+.calendar-grid-container {
+    padding: 15px;
+    background: var(--lotto-row-bg); /* Reusing for background */
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.weekdays span {
+    padding: 8px 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    background: var(--calendar-day-bg);
+    border-radius: 8px;
+    padding: 10px 5px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    color: var(--calendar-day-text);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    border: 1px solid var(--calendar-border-color);
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* Allow text to wrap */
+}
+
+.calendar-day:hover {
+    background: var(--calendar-day-hover-bg);
+    transform: translateY(-2px);
+}
+
+.calendar-day.inactive {
+    color: var(--calendar-day-inactive-text);
+    background: var(--calendar-day-hover-bg);
+    cursor: not-allowed;
+}
+
+.calendar-day .day-number {
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+.calendar-day .meal-entry {
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    text-align: center;
+    word-break: break-word; /* Break long words */
+}
+
+.calendar-day.selected {
+    background: var(--calendar-day-active-bg);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.calendar-day.selected .day-number,
+.calendar-day.selected .meal-entry {
+    color: white;
 }
