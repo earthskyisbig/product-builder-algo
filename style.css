@@ -508,3 +508,57 @@ h1 {
     width: 100%;
     margin-top: 10px;
 }
+
+/* Pet Face Test Section Styles */
+.pet-face-test-section {
+    margin-top: 20px;
+}
+
+.pet-face-test-section .card-content {
+    padding: 20px 30px;
+    background: var(--lotto-machine-bg);
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.pet-face-test-section .initial-message {
+    margin-bottom: 10px;
+}
+
+#webcam-container {
+    margin-top: 20px;
+    border: 1px solid var(--calendar-border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+#webcam-container canvas {
+    display: block; /* Remove extra space below canvas */
+    max-width: 100%;
+    height: auto;
+}
+
+#label-container {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.prediction-item {
+    padding: 5px;
+    margin-bottom: 5px;
+    background: var(--date-badge-bg);
+    border-radius: 8px;
+    color: var(--text-secondary);
+}
+
+.prediction-item:last-child {
+    margin-bottom: 0;
+}

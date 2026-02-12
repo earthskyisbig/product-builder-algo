@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project aims to create a web application that allows users to generate and display images of food items. The application will feature a user interface with an input field for food names, a button to trigger image generation, and an area to display the generated image. Additionally, it provides a simple contact form for partnership inquiries and a Disqus comment section for user engagement.
+This project aims to create a web application that allows users to generate and display images of food items. The application will feature a user interface with an input field for food names, a button to trigger image generation, and an area to display the generated image. Additionally, it provides a simple contact form for partnership inquiries, a Disqus comment section for user engagement, and a "Pet Face Test" using a Teachable Machine model to classify between dogs and cats based on webcam input.
 
 ## Style, Design, and Features
 
@@ -23,36 +23,39 @@ This project aims to create a web application that allows users to generate and 
 *   **Image Source (Food Image Generator - Initial):** For the initial implementation, an image retrieved from a public domain image service (Unsplash) is used based on the food name.
 *   **Partnership Inquiry Form:** A contact form with fields for name, email, and message, integrated with Formspree.
 *   **Disqus Comment Section:** Integration of Disqus for a comment section at the bottom of the page.
+*   **Pet Face Test:** A new section to integrate a Teachable Machine model for classifying dog/cat faces via webcam.
 
-## Current Task: Implement Food Image Generator, Partnership Inquiry Form, and Disqus Comments
+## Current Task: Implement Food Image Generator, Partnership Inquiry Form, Disqus Comments, and Pet Face Test
 
 ### Plan
 
 1.  Read the current content of `index.html`, `style.css`, and `main.js`.
-2.  Modify `index.html` to add the input field, button, image display, loading indicator (for food image generator), the partnership inquiry form, and the Disqus comment section.
+2.  Modify `index.html` to add all new UI elements and scripts.
 3.  Modify `style.css` to add basic styling for all new UI elements.
-4.  Modify `main.js` to implement the logic for handling user input, triggering image generation (with a placeholder/external service), and displaying results.
+4.  Modify `main.js` for necessary JavaScript logic.
 
 ### Steps
 
 *   **Step 1:** Read `index.html`. (Completed)
 *   **Step 2:** Read `style.css`. (Completed)
 *   **Step 3:** Read `main.js`. (Completed)
-*   **Step 4:** Add new UI elements to `index.html`. (Completed - Food Image Generator, Contact Form, and Disqus Comments)
-*   **Step 5:** Add styles to `style.css`. (Completed - Food Image Generator and Contact Form)
-*   **Step 6:** Add JavaScript logic to `main.js`. (Completed - Food Image Generator. No JS needed for Formspree or Disqus.)
+*   **Step 4:** Add new UI elements to `index.html`. (Completed - Food Image Generator, Contact Form, Disqus Comments, and Pet Face Test)
+*   **Step 5:** Add styles to `style.css`. (Completed - Food Image Generator, Contact Form, Disqus Comments, and Pet Face Test)
+*   **Step 6:** Add JavaScript logic to `main.js`. (Completed - Food Image Generator. No JS needed for Formspree or Disqus, Teachable Machine scripts are inline.)
 
 ## Implementation Details:
 
 *   **index.html:**
     *   **Food Image Generator:** Replaced the original "Decide My Dinner!" button with an `<input type="text" id="food-input">` and a new `<button id="generate-food-image-btn">`. Added a `<p id="loading-text">` for loading status.
     *   **Partnership Inquiry Form:** Added a new `<section class="contact-section">` after the `calendar-section`. This section contains a `<form>` with `action="https://formspree.io/f/mkovjgkk"` and `method="POST"`. Includes `label`, `input` (text, email), and `textarea` elements, and a submit button.
-    *   **Disqus Comments:** Added `<div id="disqus_thread" class="card" style="margin-top: 20px; padding: 20px;"></div>` and the provided JavaScript embedding code right before the closing `</body>` tag, after the footer.
+    *   **Disqus Comments:** Added `<div id="disqus_thread" class="card" style="margin-top: 20px; padding: 20px;"></div>` and the provided JavaScript embedding code after the footer.
+    *   **Pet Face Test:** Added a new `<section class="pet-face-test-section card">` after the Disqus section. This section includes a "Start Webcam Test" button, `<div id="webcam-container">`, `<div id="label-container">`, and the necessary `<script>` tags for TensorFlow.js and Teachable Machine Image, along with the provided inline JavaScript for model loading, webcam setup, and prediction.
 *   **style.css:**
     *   Added styles for `.food-generator-controls`, `.food-input`, and `.loading-text`.
     *   Added styles for `.contact-section .card-content`, `.form-group`, `label`, `input[type="text"]`, `input[type="email"]`, and `textarea` to visually integrate the form.
-    *   A class `card` and some inline styles were added to `disqus_thread` div to integrate visually.
+    *   Added a class `card` and some inline styles to `disqus_thread` div for visual integration.
+    *   Added styles for `.pet-face-test-section`, `#webcam-container`, `#label-container`, and `.prediction-item` to style the webcam feed and prediction results.
 *   **main.js:**
-    *   Updated element references and logic for the food image generator, as detailed in the previous update.
+    *   Updated element references and logic for the food image generator, as detailed in previous updates.
     *   The calendar logic was updated to store and retrieve generic `dailyEntries` (which include `foodName` and `imageUrl`) in `localStorage`.
-    *   No specific JavaScript changes were required for the basic Formspree or Disqus integrations, as they handle their functionalities directly.
+    *   No specific JavaScript changes were required for the basic Formspree or Disqus integrations, as they handle their functionalities directly. Teachable Machine scripts are integrated directly into `index.html` as provided by the user.
