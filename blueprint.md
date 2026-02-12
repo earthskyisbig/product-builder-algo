@@ -1,61 +1,55 @@
-# Dinner Recommendation Generator
+# AI Development Guidelines for Modern Web Projects in Firebase Studio
 
-## Overview
+## Project Overview
 
-A simple and visually appealing web application that helps users decide what to have for dinner by generating random meal recommendations from various international cuisines, complete with an image for each dish. It also allows users to view and assign recommendations to a calendar. The application will be built with HTML, CSS, and JavaScript, following modern web standards and design principles.
+This project aims to create a web application that allows users to generate and display images of food items. The application will feature a user interface with an input field for food names, a button to trigger image generation, and an area to display the generated image. Additionally, it provides a simple contact form for partnership inquiries.
 
-## Features & Design
+## Style, Design, and Features
 
-### Core Functionality
-- **Generate Categorized Recommendation:** A user can click a button to get a random dinner recommendation, chosen from various international cuisine categories. The category will be displayed alongside the dish.
-- **Display Recommendation & Image:** The generated dinner recommendation, its cuisine category, and an accompanying image of the dish are displayed clearly on the screen.
-- **Theme Switching:** Users can toggle between light and dark modes. The preference will be saved locally.
-- **Calendar Integration:** A calendar will be displayed, allowing users to see daily recommendations. Recommendations can be reflected on specific days.
+### Initial Version (Current State)
 
-### Visual Design
-- **Theme:** A modern and clean design, adaptable to light and dark modes, with an inviting culinary aesthetic.
-- **Layout:** A centered, responsive layout that works well on both desktop and mobile devices. The layout will accommodate the recommendation display, image, and the calendar.
-- **Colors:** An appealing color palette that complements the food theme and adapts for dark mode.
-- **Typography:** Clear and readable fonts will be used for all text elements, with an emphasis on readability for the recommendations and calendar entries.
-- **Effects:** Subtle shadows and transitions will be used to create a sense of depth and interactivity.
+*   **Structure:** Basic HTML, CSS, and JavaScript files (`index.html`, `style.css`, `main.js`).
+*   **Environment:** Firebase Studio with Code OSS-based IDE and a preview server.
+*   **Core Mandates:** Adherence to project conventions, modern web standards (Baseline), ES Modules for JavaScript, CDN for third-party libraries (with SRI), Web Components for reusable UI, modern CSS features, and modern JavaScript syntax.
+*   **Error Handling:** Automated error detection and remediation post-modification.
+*   **Visual Design:** Focus on modern aesthetics, responsiveness, intuitive UI, color, typography, texture, visual effects, and iconography. Accessibility (A11Y) standards will be implemented.
 
-## Current Plan
+### Planned Features for Current Task
 
-### Phase 1: Categorized Recommendations (Completed)
+*   **User Input (Food Image Generator):** An input field (`<input type="text">`) for users to enter the name of a food item.
+*   **Image Generation Trigger (Food Image Generator):** A button (`<button>`) to initiate the image generation process based on the input.
+*   **Image Display Area (Food Image Generator):** An `<img>` tag within a container to display the generated food image.
+*   **Loading Indicator (Food Image Generator):** A visual cue (e.g., text or spinner) to indicate when an image is being generated.
+*   **Image Source (Food Image Generator - Initial):** For the initial implementation, an image retrieved from a public domain image service (Unsplash) is used based on the food name.
+*   **Partnership Inquiry Form:** A contact form with fields for name, email, and message, integrated with Formspree.
 
-1.  **Update `blueprint.md` (Completed):** Reflect the new purpose and features of the application.
-2.  **Modify `main.js` (Completed):**
-    *   Refactor `dinnerRecommendations` into an object where keys are cuisine categories (e.g., "Italian", "Mexican") and values are arrays of dishes.
-    *   Modify `generateRecommendation` to first pick a random category, then a random dish from that category.
-    *   Add functionality to display the chosen category along with the dish.
-3.  **Modify `index.html` (Completed):** Add an element to display the chosen cuisine category.
-4.  **Modify `style.css` (Completed):** Add styles for the category display, ensuring it integrates well with existing themes.
+## Current Task: Implement Food Image Generator and Partnership Inquiry Form
 
-### Phase 2: Calendar Display and Menu Reflection (Completed)
+### Plan
 
-1.  **Modify `index.html` (Completed):**
-    *   Add a dedicated section for the calendar display.
-    *   Design a simple calendar structure (e.g., a grid with days).
-2.  **Modify `style.css` (Completed):**
-    *   Add comprehensive styling for the calendar, ensuring it's visually appealing and responsive in both light and dark modes.
-    *   Define styles for calendar cells, active days, and recommendation entries.
-3.  **Modify `main.js` (Completed):**
-    *   Implement calendar rendering logic, dynamically creating days for the current month.
-    *   Implement logic to store and retrieve daily recommendations using `localStorage`.
-    *   Add functionality to assign the currently generated recommendation to a selected calendar day.
-    *   Ensure the calendar updates to reflect assigned recommendations.
+1.  Read the current content of `index.html`, `style.css`, and `main.js`.
+2.  Modify `index.html` to add the input field, button, image display, loading indicator (for food image generator), and the partnership inquiry form.
+3.  Modify `style.css` to add basic styling for all new UI elements.
+4.  Modify `main.js` to implement the logic for handling user input, triggering image generation (with a placeholder/external service), and displaying results.
 
-### Phase 3: Image Generation and Display
+### Steps
 
-1.  **Update `blueprint.md` (Completed):** Add the image generation feature.
-2.  **Modify `index.html`:**
-    *   Add an `<img>` tag within the `recommendation-container` to display the generated image.
-3.  **Modify `style.css`:**
-    *   Add styles for the image to ensure it's responsive and visually appealing within the recommendation display.
-4.  **Modify `main.js`:**
-    *   Integrate a placeholder image service (e.g., Lorem Picsum or Unsplash Source) to generate image URLs based on the dish name.
-    *   When a recommendation is generated, fetch the image URL and update the `src` of the `<img>` tag.
+*   **Step 1:** Read `index.html`. (Completed)
+*   **Step 2:** Read `style.css`. (Completed)
+*   **Step 3:** Read `main.js`. (Completed)
+*   **Step 4:** Add new UI elements to `index.html`. (Completed - Food Image Generator and Contact Form)
+*   **Step 5:** Add styles to `style.css`. (Completed - Food Image Generator and Contact Form)
+*   **Step 6:** Add JavaScript logic to `main.js`. (Completed - Food Image Generator. No JS needed for Formspree.)
 
-### Verification and Deployment
-1.  **Verify Functionality:** Check if categorized dinner recommendations are generated correctly, the category is displayed, an image appears for each recommendation, and theme switching works as expected. Test calendar rendering, menu assignment, and persistence.
-2.  **Commit and Push:** Commit all changes and push to the remote git repository.
+## Implementation Details:
+
+*   **index.html:**
+    *   **Food Image Generator:** Replaced the original "Decide My Dinner!" button with an `<input type="text" id="food-input">` and a new `<button id="generate-food-image-btn">`. Added a `<p id="loading-text">` for loading status.
+    *   **Partnership Inquiry Form:** Added a new `<section class="contact-section">` after the `calendar-section`. This section contains a `<form>` with `action="https://formspree.io/f/mkovjgkk"` and `method="POST"`. Includes `label`, `input` (text, email), and `textarea` elements, and a submit button.
+*   **style.css:**
+    *   Added styles for `.food-generator-controls`, `.food-input`, and `.loading-text`.
+    *   Added styles for `.contact-section .card-content`, `.form-group`, `label`, `input[type="text"]`, `input[type="email"]`, and `textarea` to visually integrate the form.
+*   **main.js:**
+    *   Updated element references and logic for the food image generator, as detailed in the previous update.
+    *   The calendar logic was updated to store and retrieve generic `dailyEntries` (which include `foodName` and `imageUrl`) in `localStorage`.
+    *   No specific JavaScript changes were required for the basic Formspree integration, as Formspree handles the form submission directly.

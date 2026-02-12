@@ -153,8 +153,44 @@ h1 {
 .subtitle {
     margin: 5px 0 0;
     font-size: 1rem;
-    opacity: 0.9;
-    font-weight: 400;
+    opacity: 0.8;
+}
+
+.food-generator-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.food-input {
+    width: 80%;
+    padding: 12px 20px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: var(--shadow-inset);
+    background: var(--lotto-machine-bg);
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.food-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.food-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.3);
+}
+
+.loading-text {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-top: 15px;
+    font-weight: 600;
 }
 
 /* Card */
@@ -419,4 +455,56 @@ h1 {
 .calendar-day.selected .day-number,
 .calendar-day.selected .meal-entry {
     color: white;
+}
+
+/* Contact Section Styles */
+.contact-section .card-content {
+    padding: 20px 30px;
+    background: var(--lotto-machine-bg);
+    border-radius: 0 0 20px 20px;
+}
+
+.contact-section .initial-message {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--lotto-row-bg);
+    color: var(--text-main);
+    outline: none;
+    box-shadow: var(--shadow-inset);
+    transition: all 0.3s ease;
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.3);
+}
+
+.contact-section .btn-primary {
+    width: 100%;
+    margin-top: 10px;
 }

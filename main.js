@@ -1,33 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const generateBtn = document.getElementById('generate-btn');
-    const recommendationContainer = document.getElementById('recommendation-container');
-    const dateElement = document.getElementById('current-date');
-    const themeSwitch = document.getElementById('checkbox');
-    const mealImage = document.getElementById('meal-image'); // Reference to the meal image
-
-    // Calendar Elements
-    const prevMonthBtn = document.getElementById('prevMonth');
-    const nextMonthBtn = document.getElementById('nextMonth');
-    const currentMonthYearSpan = document.getElementById('currentMonthYear');
-    const calendarGrid = document.getElementById('calendarGrid');
-
-    let currentDisplayedDate = new Date(); // Month and year for calendar display
-    let selectedCalendarDay = null; // To store the currently selected day in the calendar
-    let currentRecommendation = { category: '', dish: '', imageUrl: '' }; // Stores the last generated recommendation
-
-    // Load recommendations from Local Storage
-    const loadDailyRecommendations = () => {
-        const storedRecommendations = localStorage.getItem('dailyRecommendations');
-        return storedRecommendations ? JSON.parse(storedRecommendations) : {};
-    };
-
-    const saveDailyRecommendations = (recommendations) => {
-        localStorage.setItem('dailyRecommendations', JSON.stringify(recommendations));
-    };
-
-    let dailyRecommendations = loadDailyRecommendations();
-
     // Theme switching logic
+    const themeSwitch = document.getElementById('checkbox');
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
         document.body.classList.add(currentTheme);
@@ -49,129 +22,103 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Set current date on initial load for the main card
+    // Food Image Generator Elements
+    const foodInput = document.getElementById('food-input');
+    const generateFoodImageBtn = document.getElementById('generate-food-image-btn');
+    const recommendationContainer = document.getElementById('recommendation-container');
+    const mealImage = document.getElementById('meal-image');
+    const loadingText = document.getElementById('loading-text');
+
+    // Initial state for image generation section
+    recommendationContainer.innerHTML = '<p class="initial-message">Enter a food name and click \'Generate\' to see an image!</p>';
+    mealImage.style.display = 'none';
+
+    const generateFoodImage = async () => {
+        const foodName = foodInput.value.trim();
+        if (!foodName) {
+            alert('Please enter a food name!');
+            return;
+        }
+
+        // Show loading and hide previous image
+        loadingText.style.display = 'block';
+        mealImage.style.display = 'none';
+        recommendationContainer.innerHTML = ''; // Clear previous messages
+        generateFoodImageBtn.disabled = true;
+
+        try {
+            // Using Unsplash source for random images based on search query
+            const imageUrl = `https://source.unsplash.com/random/400x300/?${encodeURIComponent(foodName)}`;
+            
+            // Create a temporary image to check loading state
+            const tempImage = new Image();
+            tempImage.src = imageUrl;
+
+            await new Promise((resolve, reject) => {
+                tempImage.onload = resolve;
+                tempImage.onerror = reject;
+            });
+
+            mealImage.src = imageUrl;
+            mealImage.alt = `Image of ${foodName}`;
+            
+            // Display the image and hide loading
+            mealImage.style.display = 'block';
+            loadingText.style.display = 'none';
+
+            // Optional: Add the food name as a recommendation text
+            const foodNameDisplay = document.createElement('p');
+            foodNameDisplay.textContent = foodName;
+            foodNameDisplay.classList.add('recommendation-text', 'fade-in');
+            recommendationContainer.appendChild(foodNameDisplay);
+
+        } catch (error) {
+            console.error('Error loading image:', error);
+            loadingText.style.display = 'none';
+            recommendationContainer.innerHTML = '<p class="initial-message">Could not load image. Please try another food name.</p>';
+        } finally {
+            generateFoodImageBtn.disabled = false;
+        }
+    };
+
+    generateFoodImageBtn.addEventListener('click', generateFoodImage);
+    foodInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            generateFoodImage();
+        }
+    });
+
+    // Calendar Elements
+    const dateElement = document.getElementById('current-date'); // This seems to be for the main header date
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const currentMonthYearSpan = document.getElementById('currentMonthYear');
+    const calendarGrid = document.getElementById('calendarGrid');
+
+    let currentDisplayedDate = new Date(); // Month and year for calendar display
+    let selectedCalendarDay = null; // To store the currently selected day in the calendar
+    // The calendar now needs to store generic entries, not tied to 'dinner recommendations' specifically
+    // So, we'll keep the concept of daily entries but rename for clarity
+    let dailyEntries = {};
+
+    // Set current date on initial load for the main card (retained from original)
     dateElement.textContent = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
 
-    const dinnerRecommendations = {
-        "Korean": [
-            { name: "Kimchi Stew", imageUrl: "https://source.unsplash.com/random/400x300/?kimchi-stew" },
-            { name: "Bibimbap", imageUrl: "https://source.unsplash.com/random/400x300/?bibimbap" },
-            { name: "Bulgogi", imageUrl: "https://source.unsplash.com/random/400x300/?bulgogi" },
-            { name: "Japchae", imageUrl: "https://source.unsplash.com/random/400x300/?japchae" },
-            { name: "Tteokbokki", imageUrl: "https://source.unsplash.com/random/400x300/?tteokbokki" }
-        ],
-        "Italian": [
-            { name: "Spaghetti Carbonara", imageUrl: "https://source.unsplash.com/random/400x300/?spaghetti-carbonara" },
-            { name: "Pizza Margherita", imageUrl: "https://source.unsplash.com/random/400x300/?pizza-margherita" },
-            { name: "Lasagna", imageUrl: "https://source.unsplash.com/random/400x300/?lasagna" },
-            { name: "Risotto", imageUrl: "https://source.unsplash.com/random/400x300/?risotto" },
-            { name: "Fettuccine Alfredo", imageUrl: "https://source.unsplash.com/random/400x300/?fettuccine-alfredo" }
-        ],
-        "Mexican": [
-            { name: "Beef Tacos", imageUrl: "https://source.unsplash.com/random/400x300/?beef-tacos" },
-            { name: "Enchiladas", imageUrl: "https://source.unsplash.com/random/400x300/?enchiladas" },
-            { name: "Quesadillas", imageUrl: "https://source.unsplash.com/random/400x300/?quesadillas" },
-            { name: "Burritos", imageUrl: "https://source.unsplash.com/random/400x300/?burritos" },
-            { name: "Chiles Rellenos", imageUrl: "https://source.unsplash.com/random/400x300/?chiles-rellenos" }
-        ],
-        "Indian": [
-            { name: "Chicken Curry", imageUrl: "https://source.unsplash.com/random/400x300/?chicken-curry" },
-            { name: "Dal Makhani", imageUrl: "https://source.unsplash.com/random/400x300/?dal-makhani" },
-            { name: "Paneer Butter Masala", imageUrl: "https://source.unsplash.com/random/400x300/?paneer-butter-masala" },
-            { name: "Biryani", imageUrl: "https://source.unsplash.com/random/400x300/?biryani" },
-            { name: "Samosa", imageUrl: "https://source.unsplash.com/random/400x300/?samosa" }
-        ],
-        "Japanese": [
-            { name: "Sushi", imageUrl: "https://source.unsplash.com/random/400x300/?sushi" },
-            { name: "Ramen", imageUrl: "https://source.unsplash.com/random/400x300/?ramen" },
-            { name: "Tempura", imageUrl: "https://source.unsplash.com/random/400x300/?tempura" },
-            { name: "Teriyaki Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?teriyaki-chicken" },
-            { name: "Udon", imageUrl: "https://source.unsplash.com/random/400x300/?udon" }
-        ],
-        "Chinese": [
-            { name: "Sweet and Sour Pork", imageUrl: "https://source.unsplash.com/random/400x300/?sweet-sour-pork" },
-            { name: "Chow Mein", imageUrl: "https://source.unsplash.com/random/400x300/?chow-mein" },
-            { name: "Mapo Tofu", imageUrl: "https://source.unsplash.com/random/400x300/?mapo-tofu" },
-            { name: "Kung Pao Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?kung-pao-chicken" },
-            { name: "Dumplings", imageUrl: "https://source.unsplash.com/random/400x300/?dumplings" }
-        ],
-        "American": [
-            { name: "Classic Cheeseburger", imageUrl: "https://source.unsplash.com/random/400x300/?cheeseburger" },
-            { name: "BBQ Ribs", imageUrl: "https://source.unsplash.com/random/400x300/?bbq-ribs" },
-            { name: "Fried Chicken", imageUrl: "https://source.unsplash.com/random/400x300/?fried-chicken" },
-            { name: "Mac and Cheese", imageUrl: "https://source.unsplash.com/random/400x300/?mac-cheese" },
-            { name: "Hot Dogs", imageUrl: "https://source.unsplash.com/random/400x300/?hot-dogs" }
-        ],
-        "Mediterranean": [
-            { name: "Falafel Wraps", imageUrl: "https://source.unsplash.com/random/400x300/?falafel-wraps" },
-            { name: "Hummus and Pita", imageUrl: "https://source.unsplash.com/random/400x300/?hummus-pita" },
-            { name: "Greek Salad", imageUrl: "https://source.unsplash.com/random/400x300/?greek-salad" },
-            { name: "Moussaka", imageUrl: "https://source.unsplash.com/random/400x300/?moussaka" },
-            { name: "Shawarma", imageUrl: "https://source.unsplash.com/random/400x300/?shawarma" }
-        ],
-        "Thai": [
-            { name: "Pad Thai", imageUrl: "https://source.unsplash.com/random/400x300/?pad-thai" },
-            { name: "Green Curry", imageUrl: "https://source.unsplash.com/random/400x300/?green-curry" },
-            { name: "Tom Yum Soup", imageUrl: "https://source.unsplash.com/random/400x300/?tom-yum-soup" },
-            { name: "Massaman Curry", imageUrl: "https://source.unsplash.com/random/400x300/?massaman-curry" },
-            { name: "Spring Rolls", imageUrl: "https://source.unsplash.com/random/400x300/?spring-rolls" }
-        ],
-        "French": [
-            { name: "Coq au Vin", imageUrl: "https://source.unsplash.com/random/400x300/?coq-au-vin" },
-            { name: "Beef Bourguignon", imageUrl: "https://source.unsplash.com/random/400x300/?beef-bourguignon" },
-            { name: "Croque Monsieur", imageUrl: "https://source.unsplash.com/random/400x300/?croque-monsieur" },
-            { name: "Ratatouille", imageUrl: "https://source.unsplash.com/random/400x300/?ratatouille" },
-            { name: "French Onion Soup", imageUrl: "https://source.unsplash.com/random/400x300/?french-onion-soup" }
-        ]
+    // Load/Save daily entries (e.g., generated food images, or other notes) from Local Storage
+    const loadDailyEntries = () => {
+        const storedEntries = localStorage.getItem('dailyEntries');
+        return storedEntries ? JSON.parse(storedEntries) : {};
     };
 
-    const generateRecommendation = () => {
-        recommendationContainer.innerHTML = ''; // Clear previous text
-        mealImage.style.display = 'none'; // Hide image initially
-        generateBtn.disabled = true;
-
-        const categories = Object.keys(dinnerRecommendations);
-        const randomCategoryIndex = Math.floor(Math.random() * categories.length);
-        const selectedCategory = categories[randomCategoryIndex];
-        const dishes = dinnerRecommendations[selectedCategory];
-        const randomDishIndex = Math.floor(Math.random() * dishes.length);
-        const selectedDish = dishes[randomDishIndex]; // Get the full dish object
-
-        const recommendationName = selectedDish.name;
-        const imageUrl = selectedDish.imageUrl || `https://source.unsplash.com/random/400x300/?${recommendationName.replace(/\s/g, '-')}`;
-
-        currentRecommendation = { category: selectedCategory, dish: recommendationName, imageUrl: imageUrl };
-
-        const categoryText = document.createElement('p');
-        categoryText.textContent = selectedCategory;
-        categoryText.classList.add('category-text', 'fade-in');
-
-        const recommendationText = document.createElement('p');
-        recommendationText.textContent = recommendationName;
-        recommendationText.classList.add('recommendation-text', 'fade-in');
-
-        recommendationContainer.appendChild(categoryText);
-        recommendationContainer.appendChild(recommendationText);
-        
-        // Update and show image
-        mealImage.src = imageUrl;
-        mealImage.alt = `Image of ${recommendationName}`;
-        mealImage.style.display = 'block';
-
-        setTimeout(() => {
-            generateBtn.disabled = false;
-        }, 500);
+    const saveDailyEntries = (entries) => {
+        localStorage.setItem('dailyEntries', JSON.stringify(entries));
     };
 
-    generateBtn.addEventListener('click', generateRecommendation);
-
-    // Initial message for recommendation and hide image
-    recommendationContainer.innerHTML = '<p class="initial-message">Click \'Decide\' to find your dinner!</p>';
-    mealImage.style.display = 'none';
+    dailyEntries = loadDailyEntries();
 
     // Calendar Logic
     const renderCalendar = () => {
@@ -209,12 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
             dayNumber.textContent = day;
             calendarDay.appendChild(dayNumber);
 
-            // Check for existing recommendation for this day
+            // Check for existing entry for this day
             const dateKey = `${year}-${month + 1}-${day}`;
-            if (dailyRecommendations[dateKey]) {
+            if (dailyEntries[dateKey]) {
                 const mealEntry = document.createElement('span');
                 mealEntry.classList.add('meal-entry');
-                mealEntry.textContent = dailyRecommendations[dateKey].dish;
+                // Displaying the food name that was generated
+                mealEntry.textContent = dailyEntries[dateKey].foodName; 
                 calendarDay.appendChild(mealEntry);
             }
 
@@ -227,11 +175,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 calendarDay.classList.add('selected');
                 selectedCalendarDay = calendarDay;
 
-                // Assign current recommendation to this day
-                if (currentRecommendation.dish) {
-                    dailyRecommendations[dateKey] = currentRecommendation;
-                    saveDailyRecommendations(dailyRecommendations);
+                // When a day is clicked, if there's a food image currently displayed,
+                // we'll associate it with this day.
+                if (mealImage.style.display === 'block' && foodInput.value.trim()) {
+                    dailyEntries[dateKey] = {
+                        foodName: foodInput.value.trim(),
+                        imageUrl: mealImage.src
+                    };
+                    saveDailyEntries(dailyEntries);
                     renderCalendar(); // Re-render to update the meal entry
+                } else if (dailyEntries[dateKey]) {
+                    // If no new image is generated but there's an entry for this day,
+                    // display its image in the main section.
+                    mealImage.src = dailyEntries[dateKey].imageUrl;
+                    mealImage.alt = `Image of ${dailyEntries[dateKey].foodName}`;
+                    mealImage.style.display = 'block';
+                    recommendationContainer.innerHTML = '';
+                    const foodNameDisplay = document.createElement('p');
+                    foodNameDisplay.textContent = dailyEntries[dateKey].foodName;
+                    foodNameDisplay.classList.add('recommendation-text', 'fade-in');
+                    recommendationContainer.appendChild(foodNameDisplay);
                 }
             });
 
