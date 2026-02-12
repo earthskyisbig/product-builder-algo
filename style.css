@@ -528,18 +528,54 @@ h1 {
     margin-bottom: 10px;
 }
 
-#webcam-container {
-    margin-top: 20px;
+.file-input {
+    width: 100%;
+    padding: 10px;
     border: 1px solid var(--calendar-border-color);
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow-soft);
+    background: var(--lotto-row-bg);
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: var(--shadow-inset);
+    transition: all 0.3s ease;
 }
 
-#webcam-container canvas {
-    display: block; /* Remove extra space below canvas */
-    max-width: 100%;
-    height: auto;
+.file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.file-input::before {
+    content: 'Select Image';
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 10pt;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.file-input:hover::before {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.file-input:active::before {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+#uploaded-image {
+    border: 1px solid var(--calendar-border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+    object-fit: contain; /* Ensure image fits within bounds */
 }
 
 #label-container {

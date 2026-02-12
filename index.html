@@ -108,9 +108,9 @@
                 <h2>Pet Face Test</h2>
             </div>
             <div class="card-content">
-                <p class="initial-message">Find out if you look more like a dog or a cat!</p>
-                <button type="button" onclick="init()" class="btn-primary">Start Webcam Test</button>
-                <div id="webcam-container"></div>
+                <p class="initial-message">Upload an image to find out if it looks more like a dog or a cat!</p>
+                <input type="file" id="image-upload" accept="image/*" class="btn-primary file-input">
+                <img id="uploaded-image" style="max-width: 100%; max-height: 200px; margin-top: 15px; display: none;" alt="Uploaded Image">
                 <div id="label-container" class="label-container"></div>
             </div>
         </section>
@@ -118,71 +118,60 @@
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
         <script type="text/javascript">
-            // More API functions here:
-            // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-
-            // the link to your model provided by Teachable Machine export panel
             const URL = "https://teachablemachine.withgoogle.com/models/hizF4jvcQ/";
 
-            let model, webcam, labelContainer, maxPredictions;
+            let model, labelContainer, maxPredictions;
+            let uploadedImageElement; // Reference to the img tag for uploaded image
 
-            // Load the image model and setup the webcam
             async function init() {
                 const modelURL = URL + "model.json";
                 const metadataURL = URL + "metadata.json";
 
-                // Disable start button during initialization
-                document.querySelector('.pet-face-test-section .btn-primary').disabled = true;
-                document.querySelector('.pet-face-test-section .btn-primary').textContent = 'Loading Model...';
+                // Load the model
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
 
-                try {
-                    model = await tmImage.load(modelURL, metadataURL);
-                    maxPredictions = model.getTotalClasses();
-
-                    // Convenience function to setup a webcam
-                    const flip = true; // whether to flip the webcam
-                    webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-                    await webcam.setup(); // request access to the webcam
-                    await webcam.play();
-                    window.requestAnimationFrame(loop);
-
-                    // append elements to the DOM
-                    document.getElementById("webcam-container").innerHTML = ''; // Clear any previous content
-                    document.getElementById("webcam-container").appendChild(webcam.canvas);
-                    labelContainer = document.getElementById("label-container");
-                    labelContainer.innerHTML = ''; // Clear any previous content
-                    for (let i = 0; i < maxPredictions; i++) { // and class labels
-                        const predictionDiv = document.createElement("div");
-                        predictionDiv.classList.add('prediction-item');
-                        labelContainer.appendChild(predictionDiv);
-                    }
-                    document.querySelector('.pet-face-test-section .btn-primary').textContent = 'Webcam Active!';
-                } catch (error) {
-                    console.error("Error initializing Teachable Machine:", error);
-                    alert("Could not start webcam or load model. Please ensure you allow camera access.");
-                    document.querySelector('.pet-face-test-section .btn-primary').textContent = 'Start Webcam Test';
-                    document.querySelector('.pet-face-test-section .btn-primary').disabled = false;
+                labelContainer = document.getElementById("label-container");
+                labelContainer.innerHTML = ''; // Clear any previous content
+                for (let i = 0; i < maxPredictions; i++) {
+                    const predictionDiv = document.createElement("div");
+                    predictionDiv.classList.add('prediction-item');
+                    labelContainer.appendChild(predictionDiv);
                 }
+
+                uploadedImageElement = document.getElementById('uploaded-image');
+                const imageUploadInput = document.getElementById('image-upload');
+                imageUploadInput.addEventListener('change', handleImageUpload);
+                console.log("Teachable Machine model loaded and file input ready.");
             }
 
-            async function loop() {
-                if (webcam) { // Only update if webcam is active
-                    webcam.update(); // update the webcam frame
-                    await predict();
-                    window.requestAnimationFrame(loop);
+            async function handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (!file) {
+                    return;
                 }
+
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    uploadedImageElement.src = e.target.result;
+                    uploadedImageElement.style.display = 'block'; // Show the image
+                    await predict(uploadedImageElement); // Predict from the uploaded image
+                };
+                reader.readAsDataURL(file);
             }
 
-            // run the webcam image through the image model
-            async function predict() {
-                // predict can take in an image, video or canvas html element
-                const prediction = await model.predict(webcam.canvas);
+            async function predict(imageElement) {
+                labelContainer.innerHTML = ''; // Clear previous predictions
+                const prediction = await model.predict(imageElement);
                 for (let i = 0; i < maxPredictions; i++) {
                     const classPrediction =
-                        prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(0) + "%"; // Format as percentage
+                        prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(0) + "%";
                     labelContainer.childNodes[i].innerHTML = classPrediction;
                 }
             }
+
+            // Initialize the model when the page loads
+            document.addEventListener('DOMContentLoaded', init);
         </script>
     </div>
     <script src="main.js"></script>
