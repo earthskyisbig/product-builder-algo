@@ -23,11 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Food Recognition Elements
-    const foodUpload = document.getElementById('food-upload');
-    const recognizeFoodBtn = document.getElementById('recognize-food-btn');
-    const foodImage = document.getElementById('food-image');
-    const foodLabelContainer = document.getElementById('food-label-container');
+    // Menu Recommendation Elements
+    const recommendMenuBtn = document.getElementById('recommend-menu-btn');
+    const menuRecommendationContainer = document.getElementById('menu-recommendation-container');
 
     // Pet Face Test Elements
     const imageUpload = document.getElementById('image-upload');
@@ -43,20 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMonth = new Date().getMonth();
     let currentYear = new Date().getFullYear();
 
-    const recognizeFood = async () => {
-        if (!foodUpload.files || foodUpload.files.length === 0) {
-            alert('Please upload an image first!');
-            return;
-        }
-
-        foodLabelContainer.innerHTML = '<p class="loading-text">Recognizing food...</p>';
-        recognizeFoodBtn.disabled = true;
+    const recommendMenu = async () => {
+        menuRecommendationContainer.innerHTML = '<p class="loading-text">Generating menu...</p>';
+        recommendMenuBtn.disabled = true;
 
         // Placeholder for AI model integration
         setTimeout(() => {
-            foodLabelContainer.innerHTML = '<p class="fade-in">This looks like a delicious pizza!</p>';
-            recognizeFoodBtn.disabled = false;
-        }, 2000);
+            const menus = ["Pizza", "Burger", "Sushi", "Pasta", "Tacos", "Korean BBQ"];
+            const randomMenu = menus[Math.floor(Math.random() * menus.length)];
+            menuRecommendationContainer.innerHTML = `<p class="fade-in">How about ${randomMenu} for dinner tonight?</p>`;
+            recommendMenuBtn.disabled = false;
+        }, 1000);
     };
 
     const initPetTest = async () => {
@@ -127,18 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         generateCalendar(currentMonth, currentYear);
     });
     
-    foodUpload.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                foodImage.src = e.target.result;
-                foodImage.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
     imageUpload.addEventListener('change', (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -152,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    recognizeFoodBtn.addEventListener('click', recognizeFood);
+    recommendMenuBtn.addEventListener('click', recommendMenu);
 
     generateCalendar(currentMonth, currentYear);
 });
