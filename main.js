@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // Theme switching logic
     const themeSwitch = document.getElementById('checkbox');
@@ -22,196 +23,136 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Food Image Generator Elements
-    const foodInput = document.getElementById('food-input');
-    const generateFoodImageBtn = document.getElementById('generate-food-image-btn');
-    const recommendationContainer = document.getElementById('recommendation-container');
-    const mealImage = document.getElementById('meal-image');
-    const loadingText = document.getElementById('loading-text');
+    // Food Recognition Elements
+    const foodUpload = document.getElementById('food-upload');
+    const recognizeFoodBtn = document.getElementById('recognize-food-btn');
+    const foodImage = document.getElementById('food-image');
+    const foodLabelContainer = document.getElementById('food-label-container');
 
-    // Initial state for image generation section
-    recommendationContainer.innerHTML = '<p class="initial-message">Enter a food name and click \'Generate\' to see an image!</p>';
-    mealImage.style.display = 'none';
+    // Pet Face Test Elements
+    const imageUpload = document.getElementById('image-upload');
+    const uploadedImage = document.getElementById('uploaded-image');
+    const labelContainer = document.getElementById('label-container');
 
-    const generateFoodImage = async () => {
-        const foodName = foodInput.value.trim();
-        if (!foodName) {
-            alert('Please enter a food name!');
+    // Calendar Elements
+    const calendarGrid = document.getElementById('calendarGrid');
+    const currentMonthYear = document.getElementById('currentMonthYear');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    const recognizeFood = async () => {
+        if (!foodUpload.files || foodUpload.files.length === 0) {
+            alert('Please upload an image first!');
             return;
         }
 
-        // Show loading and hide previous image
-        loadingText.style.display = 'block';
-        mealImage.style.display = 'none';
-        recommendationContainer.innerHTML = ''; // Clear previous messages
-        generateFoodImageBtn.disabled = true;
+        foodLabelContainer.innerHTML = '<p class="loading-text">Recognizing food...</p>';
+        recognizeFoodBtn.disabled = true;
 
-        try {
-            // Using Unsplash source for random images based on search query
-            const imageUrl = `https://source.unsplash.com/random/400x300/?${encodeURIComponent(foodName)}`;
-            
-            // Create a temporary image to check loading state
-            const tempImage = new Image();
-            tempImage.src = imageUrl;
-
-            await new Promise((resolve, reject) => {
-                tempImage.onload = resolve;
-                tempImage.onerror = reject;
-            });
-
-            mealImage.src = imageUrl;
-            mealImage.alt = `Image of ${foodName}`;
-            
-            // Display the image and hide loading
-            mealImage.style.display = 'block';
-            loadingText.style.display = 'none';
-
-            // Optional: Add the food name as a recommendation text
-            const foodNameDisplay = document.createElement('p');
-            foodNameDisplay.textContent = foodName;
-            foodNameDisplay.classList.add('recommendation-text', 'fade-in');
-            recommendationContainer.appendChild(foodNameDisplay);
-
-        } catch (error) {
-            console.error('Error loading image:', error);
-            loadingText.style.display = 'none';
-            recommendationContainer.innerHTML = '<p class="initial-message">Could not load image. Please try another food name.</p>';
-        } finally {
-            generateFoodImageBtn.disabled = false;
-        }
+        // Placeholder for AI model integration
+        setTimeout(() => {
+            foodLabelContainer.innerHTML = '<p class="fade-in">This looks like a delicious pizza!</p>';
+            recognizeFoodBtn.disabled = false;
+        }, 2000);
     };
 
-    generateFoodImageBtn.addEventListener('click', generateFoodImage);
-    foodInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            generateFoodImage();
-        }
-    });
-
-    // Calendar Elements
-    const dateElement = document.getElementById('current-date'); // This seems to be for the main header date
-    const prevMonthBtn = document.getElementById('prevMonth');
-    const nextMonthBtn = document.getElementById('nextMonth');
-    const currentMonthYearSpan = document.getElementById('currentMonthYear');
-    const calendarGrid = document.getElementById('calendarGrid');
-
-    let currentDisplayedDate = new Date(); // Month and year for calendar display
-    let selectedCalendarDay = null; // To store the currently selected day in the calendar
-    // The calendar now needs to store generic entries, not tied to 'dinner recommendations' specifically
-    // So, we'll keep the concept of daily entries but rename for clarity
-    let dailyEntries = {};
-
-    // Set current date on initial load for the main card (retained from original)
-    dateElement.textContent = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-
-    // Load/Save daily entries (e.g., generated food images, or other notes) from Local Storage
-    const loadDailyEntries = () => {
-        const storedEntries = localStorage.getItem('dailyEntries');
-        return storedEntries ? JSON.parse(storedEntries) : {};
-    };
-
-    const saveDailyEntries = (entries) => {
-        localStorage.setItem('dailyEntries', JSON.stringify(entries));
-    };
-
-    dailyEntries = loadDailyEntries();
-
-    // Calendar Logic
-    const renderCalendar = () => {
-        calendarGrid.innerHTML = ''; // Clear previous days
-        currentMonthYearSpan.textContent = currentDisplayedDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long'
-        });
-
-        const year = currentDisplayedDate.getFullYear();
-        const month = currentDisplayedDate.getMonth(); // 0-indexed
-
-        // Get the first day of the month and last day of the month
-        const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfMonth = new Date(year, month + 1, 0);
-        const numDaysInMonth = lastDayOfMonth.getDate();
-
-        // Calculate starting day of the week (0=Sunday, 6=Saturday)
-        const startDayOfWeek = firstDayOfMonth.getDay();
-
-        // Fill in leading empty days
-        for (let i = 0; i < startDayOfWeek; i++) {
-            const emptyDay = document.createElement('div');
-            emptyDay.classList.add('calendar-day', 'inactive');
-            calendarGrid.appendChild(emptyDay);
+    const initPetTest = async () => {
+        if (!imageUpload.files || imageUpload.files.length === 0) {
+            alert('Please upload an image first!');
+            return;
         }
 
-        // Fill in days of the month
-        for (let day = 1; day <= numDaysInMonth; day++) {
-            const calendarDay = document.createElement('div');
-            calendarDay.classList.add('calendar-day');
+        labelContainer.innerHTML = '<p class="loading-text">Analyzing image...</p>';
 
-            const dayNumber = document.createElement('span');
-            dayNumber.classList.add('day-number');
-            dayNumber.textContent = day;
-            calendarDay.appendChild(dayNumber);
+        // Placeholder for AI model integration
+        setTimeout(() => {
+            const results = [
+                "Your face resembles a cat's! You must be independent and mysterious.",
+                "You have a dog-like face! You are likely friendly and loyal.",
+                "You have the face of a hamster! You must be storing snacks in your cheeks.",
+                "You resemble a fox! You are probably cunning and clever."
+            ];
+            const randomResult = results[Math.floor(Math.random() * results.length)];
+            labelContainer.innerHTML = `<p class="fade-in">${randomResult}</p>`;
+        }, 2000);
+    };
 
-            // Check for existing entry for this day
-            const dateKey = `${year}-${month + 1}-${day}`;
-            if (dailyEntries[dateKey]) {
-                const mealEntry = document.createElement('span');
-                mealEntry.classList.add('meal-entry');
-                // Displaying the food name that was generated
-                mealEntry.textContent = dailyEntries[dateKey].foodName; 
-                calendarDay.appendChild(mealEntry);
-            }
+    const generateCalendar = (month, year) => {
+        calendarGrid.innerHTML = '';
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        currentMonthYear.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}`;
 
-            calendarDay.addEventListener('click', () => {
-                // Remove 'selected' from previously selected day
-                if (selectedCalendarDay) {
-                    selectedCalendarDay.classList.remove('selected');
-                }
-                // Add 'selected' to current day
-                calendarDay.classList.add('selected');
-                selectedCalendarDay = calendarDay;
+        for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement('div');
+            calendarGrid.appendChild(emptyCell);
+        }
 
-                // When a day is clicked, if there's a food image currently displayed,
-                // we'll associate it with this day.
-                if (mealImage.style.display === 'block' && foodInput.value.trim()) {
-                    dailyEntries[dateKey] = {
-                        foodName: foodInput.value.trim(),
-                        imageUrl: mealImage.src
-                    };
-                    saveDailyEntries(dailyEntries);
-                    renderCalendar(); // Re-render to update the meal entry
-                } else if (dailyEntries[dateKey]) {
-                    // If no new image is generated but there's an entry for this day,
-                    // display its image in the main section.
-                    mealImage.src = dailyEntries[dateKey].imageUrl;
-                    mealImage.alt = `Image of ${dailyEntries[dateKey].foodName}`;
-                    mealImage.style.display = 'block';
-                    recommendationContainer.innerHTML = '';
-                    const foodNameDisplay = document.createElement('p');
-                    foodNameDisplay.textContent = dailyEntries[dateKey].foodName;
-                    foodNameDisplay.classList.add('recommendation-text', 'fade-in');
-                    recommendationContainer.appendChild(foodNameDisplay);
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayCell = document.createElement('div');
+            dayCell.textContent = i;
+            dayCell.classList.add('day-cell');
+            dayCell.addEventListener('click', () => {
+                const meal = prompt('Enter your dinner plan for this day:');
+                if (meal) {
+                    const mealElement = document.createElement('div');
+                    mealElement.textContent = meal;
+                    mealElement.classList.add('meal');
+                    dayCell.appendChild(mealElement);
                 }
             });
-
-            calendarGrid.appendChild(calendarDay);
+            calendarGrid.appendChild(dayCell);
         }
     };
 
     prevMonthBtn.addEventListener('click', () => {
-        currentDisplayedDate.setMonth(currentDisplayedDate.getMonth() - 1);
-        renderCalendar();
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar(currentMonth, currentYear);
     });
 
     nextMonthBtn.addEventListener('click', () => {
-        currentDisplayedDate.setMonth(currentDisplayedDate.getMonth() + 1);
-        renderCalendar();
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar(currentMonth, currentYear);
+    });
+    
+    foodUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                foodImage.src = e.target.result;
+                foodImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
     });
 
-    // Initial calendar render
-    renderCalendar();
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedImage.src = e.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+            initPetTest();
+        }
+    });
+
+    recognizeFoodBtn.addEventListener('click', recognizeFood);
+
+    generateCalendar(currentMonth, currentYear);
 });

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a high-quality, single-page web application featuring a collection of AI-powered tools. It has been structured and enhanced to meet Google AdSense quality guidelines by providing clear navigation, original content, and transparent user policies. The tools include an AI Food Image Generator and a "Pet Face Test" that classifies uploaded images. The site also includes user engagement features like a Disqus comment section and a partnership contact form, and is set up for monetization with Google AdSense.
+This project is a high-quality, single-page web application featuring a collection of AI-powered tools. It has been structured and enhanced to meet Google AdSense quality guidelines by providing clear navigation, original content, and transparent user policies. The tools include an AI Food Recognition tool and a "Pet Face Test" that classifies uploaded images. The site also includes user engagement features like a Disqus comment section and a partnership contact form, and is set up for monetization with Google AdSense.
 
 ## Style, Design, and Features
 
@@ -17,42 +17,35 @@ This project is a high-quality, single-page web application featuring a collecti
 
 ### Key Features
 
-*   **AI Food Image Generator:** Allows users to enter a food name and see an AI-generated image.
+*   **AI Food Recognition (File Input):** A tool that uses a placeholder model to recognize food items from an uploaded image.
 *   **Pet Face Test (File Input):** A tool that uses a Teachable Machine model to classify uploaded images as either "Dog" or "Cat".
-*   **Dinner Calendar:** A feature to save generated food ideas to a local storage-backed calendar.
 *   **About Us, Privacy Policy, Terms of Service:** Dedicated sections providing transparency and important information to the user.
 *   **Partnership Inquiry Form:** A contact form integrated with Formspree.
 *   **Disqus Comment Section:** A comment section for user engagement.
 *   **Google AdSense Integration:** Includes the AdSense script, meta tag, `ads.txt` file, and a responsive ad unit placeholder.
 
-## Current Task: Optimize for Google AdSense Approval
+## Current Task: Implement Food Recognition Feature
 
 ### Plan
 
-1.  Add a fixed top navigation bar for clear site structure.
-2.  Add "About Us," "Privacy Policy," and "Terms of Service" sections.
-3.  Add descriptive content to each tool section.
-4.  Reorganize `index.html` and `style.css` to implement the new structure and improve layout.
+1.  Replace the "Food Image Generator" with a "Food Recognition" feature.
+2.  Update `index.html` with a file upload input and a recognition button.
+3.  Update `main.js` to handle image uploads and implement a placeholder for the recognition logic.
+4.  Update `blueprint.md` to reflect the changes.
 
 ### Steps
 
-*   **Step 1:** Modify `index.html` to add the new navigation bar and content sections, and restructure the layout. (Completed)
-*   **Step 2:** Modify `style.css` to style the new elements, adjust the layout for responsiveness, and ensure a consistent design. (Completed)
-*   **Step 3:** Update `blueprint.md` to reflect the site's new high-quality structure. (Completed)
+*   **Step 1:** Modify `index.html` to replace the food generator section with the new food recognition UI. (Completed)
+*   **Step 2:** Modify `main.js` to remove the food generator and calendar logic, and add the new food recognition and pet test logic. (Completed)
+*   **Step 3:** Update `blueprint.md` to reflect the site's new functionality. (Completed)
 
 ## Implementation Details:
 
 *   **index.html:**
-    *   **Structure Overhaul:** Reorganized the entire document. Sections are now clearly delineated with `id` attributes for navigation.
-    *   **Navigation Bar:** Added a new `<nav class="top-nav">` at the top of the page with links to `#food-generator`, `#pet-test`, `#about`, and `#contact`. The theme switcher was moved into this bar.
-    *   **New Content Sections:**
-        *   Added `<section class="about-section card" id="about">` with descriptive text about the website's mission.
-        *   Added `<section class="legal-section card">` containing both the Privacy Policy and Terms of Service.
-    *   **Enhanced Descriptions:** Added `<p class="initial-message">` with more descriptive text to the Food Generator, Pet Test, and Calendar sections.
-*   **style.css:**
-    *   **Layout:** Added `padding-top` to the `body` to account for the fixed navigation bar. Enabled `scroll-behavior: smooth`.
-    *   **Navigation Bar:** Added styles for `.top-nav` to create a fixed, modern navigation bar with styled links (`.top-nav a`).
-    *   **Content Sections:** Added styles for `.text-content` to ensure readability for the new "About" and "Legal" sections. Added `.centered-content` for better layout in the tool sections.
-    *   **Responsiveness & General Cleanup:** Adjusted various styles for a more consistent and responsive layout across the entire application.
-*   **main.js:** No changes were needed for this structural update.
+    *   **Food Recognition Section:** Replaced the `#food-generator` section with a new `#food-recognition` section. The new section includes a file input (`#food-upload`), a button (`#recognize-food-btn`), an image preview (`#food-image`), and a container for labels (`#food-label-container`).
+    *   **Navigation Bar:** Updated the navigation link to point to `#food-recognition`.
+*   **main.js:**
+    *   **Code Cleanup:** Removed the `generateFoodImage` function, its event listeners, and all the code related to the calendar functionality.
+    *   **Food Recognition Logic:** Added event listener to `#food-upload` to preview the selected image. Added an event listener to `#recognize-food-btn` that calls the `recognizeFood` function. The `recognizeFood` function currently contains a placeholder for the AI model integration.
+    *   **Pet Test Logic:** Added a placeholder `initPetTest` function and an event listener to `#image-upload` to preview the image and call the `initPetTest` function.
 *   **ads.txt:** Remains unchanged.

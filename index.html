@@ -21,7 +21,7 @@
         </header>
 
         <nav class="top-nav">
-            <a href="#food-generator">Food Generator</a>
+            <a href="#food-recognition">Food Recognition</a>
             <a href="#pet-test">Pet Test</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
@@ -33,18 +33,18 @@
             </div>
         </nav>
 
-        <main class="card" id="food-generator">
+        <main class="card" id="food-recognition">
             <div class="card-header">
-                <h2>AI Food Image Generator</h2>
+                <h2>AI Food Recognition</h2>
             </div>
             <div class="card-content centered-content">
-                <p class="initial-message">Enter a food name, and our AI will generate a unique image for you. A new way to visualize your next meal!</p>
-                <input type="text" id="food-input" class="food-input" placeholder="e.g., 'Spicy ramen' or 'Rainbow cake'">
-                <button id="generate-food-image-btn" class="btn-primary">
-                    <span class="btn-icon">📸</span> Generate Food Image
+                <p class="initial-message">Upload an image of a food item, and our AI will try to recognize it for you!</p>
+                <input type="file" id="food-upload" accept="image/*" class="btn-primary file-input">
+                <button id="recognize-food-btn" class="btn-primary">
+                    <span class="btn-icon">🍜</span> Recognize Food
                 </button>
-                <p id="loading-text" class="loading-text" style="display: none;">Generating image...</p>
-                <img id="meal-image" src="https://via.placeholder.com/200" alt="Generated meal" class="meal-image" style="display: none;">
+                <img id="food-image" src="https://via.placeholder.com/200" alt="Uploaded food" class="meal-image" style="display: none;">
+                <div id="food-label-container" class="label-container"></div>
             </div>
         </main>
 
@@ -165,5 +165,23 @@
         </footer>
     </div>
     <script src="main.js"></script>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </body>
 </html>
