@@ -22,8 +22,8 @@
 
         <nav class="top-nav">
             <a href="#menu-recommendation">오늘 메뉴 추천</a>
+            <a href="#calendar-section">Dinner Calendar</a>
             <a href="#pet-test">Pet Test</a>
-            <a href="#about">About</a>
             <a href="#contact">Contact</a>
             <div class="theme-switch-wrapper">
                 <label class="theme-switch" for="checkbox">
@@ -46,36 +46,7 @@
             </div>
         </main>
 
-        <section class="ads-section card" style="margin-top: 20px; text-align: center;">
-            <div class="card-header">
-                <h2>Advertisement</h2>
-            </div>
-            <div class="card-content">
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-9873122175669208"
-                    data-ad-slot="YOUR_AD_SLOT_ID"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </section>
-
-        <section class="pet-face-test-section card" id="pet-test">
-            <div class="card-header">
-                <h2>Pet Face Test</h2>
-            </div>
-            <div class="card-content centered-content">
-                <p class="initial-message">Is your face more cat-like or dog-like? Upload an image and let our AI decide!</p>
-                <input type="file" id="image-upload" accept="image/*" class="btn-primary file-input">
-                <img id="uploaded-image" style="max-width: 100%; max-height: 200px; margin-top: 15px; display: none;" alt="Uploaded Image">
-                <div id="label-container" class="label-container"></div>
-            </div>
-        </section>
-
-        <section class="calendar-section card">
+        <section class="calendar-section card" id="calendar-section">
             <div class="card-header">
                 <h2>Dinner Calendar</h2>
             </div>
@@ -102,15 +73,36 @@
             </div>
         </section>
 
-        <section class="about-section card" id="about">
+        <section class="pet-face-test-section card" id="pet-test">
             <div class="card-header">
-                <h2>About Us</h2>
+                <h2>Pet Face Test</h2>
             </div>
-            <div class="card-content text-content">
-                <p>Welcome to Dinner Decider! This site was created to explore the fun and creative possibilities of modern AI. From generating unique images of your favorite foods to analyzing features in photos, we are passionate about building simple, engaging tools for everyone to enjoy.</p>
-                <p>Our mission is to provide high-quality, entertaining digital experiences. All tools on this website are developed with a user-first mindset, ensuring they are easy to use and understand. We hope you have a great time using our creations!</p>
+            <div class="card-content centered-content">
+                <p class="initial-message">Is your face more cat-like or dog-like? Upload an image and let our AI decide!</p>
+                <input type="file" id="image-upload" accept="image/*" class="btn-primary file-input">
+                <img id="uploaded-image" style="max-width: 100%; max-height: 200px; margin-top: 15px; display: none;" alt="Uploaded Image">
+                <div id="label-container" class="label-container"></div>
             </div>
         </section>
+
+        <section class="ads-section card" style="margin-top: 20px; text-align: center;">
+            <div class="card-header">
+                <h2>Advertisement</h2>
+            </div>
+            <div class="card-content">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-9873122175669208"
+                    data-ad-slot="YOUR_AD_SLOT_ID"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+        <div id="disqus_thread" class="card" style="margin-top: 20px; padding: 20px;"></div>
 
         <section class="contact-section card" id="contact">
             <div class="card-header">
@@ -155,8 +147,6 @@
                 <p>By using this website, you agree to the following terms: The tools and content on this site are provided "as is" without any warranty. You agree to use them at your own risk. You will not use this site for any unlawful purpose. We reserve the right to modify these terms at any time.</p>
             </div>
         </section>
-
-        <div id="disqus_thread" class="card" style="margin-top: 20px; padding: 20px;"></div>
 
         <footer class="app-footer">
             <p>&copy; 2026 Dinner Decider. A fun place for AI tools.</p>
