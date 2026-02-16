@@ -475,3 +475,63 @@ h1 {
 .loading-text {
     color: var(--text-secondary);
 }
+/* ── SNS Share Buttons ── */
+.share-section {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.share-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    position: relative;
+}
+
+.share-btn:hover  { opacity: 0.85; transform: translateY(-1px); }
+.share-btn:active { transform: scale(0.97); }
+
+.share-btn.facebook  { background: #1877F2; }
+.share-btn.x-twitter { background: #000; }
+.share-btn.instagram {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+.share-btn.tiktok    { background: #010101; border: 1px solid #333; }
+
+.share-btn .copied-tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.share-btn .copied-tip.show { display: block; }
