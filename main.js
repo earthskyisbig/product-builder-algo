@@ -142,7 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 "You resemble a fox! You are probably cunning and clever."
             ];
             const randomResult = results[Math.floor(Math.random() * results.length)];
-            labelContainer.innerHTML = `<p class="fade-in">${randomResult}</p>`;
+            labelContainer.innerHTML = '';
+            const resultP = document.createElement('p');
+            resultP.className = 'fade-in';
+            resultP.textContent = randomResult;
+            labelContainer.appendChild(resultP);
+
+            const shareText = `${randomResult} 🐾\nAI 동물상 테스트 해봐!\n👉 https://product-builder-algo.workers.dev`;
+            labelContainer.appendChild(createShareButtons(shareText));
         }, 2000);
     };
 
