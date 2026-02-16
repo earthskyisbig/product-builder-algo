@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81c7f5"/>
+      <stop offset="100%" style="stop-color:#6a82fb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g transform="translate(480, 165) scale(7.5)" fill="white" opacity="0.15">
+    <rect x="8.5" y="3" width="1.5" height="10" rx="0.75"/>
+    <rect x="10.75" y="3" width="1.5" height="10" rx="0.75"/>
+    <rect x="13" y="3" width="1.5" height="10" rx="0.75"/>
+    <rect x="10.25" y="12" width="2.5" height="17" rx="1.25"/>
+    <rect x="20.5" y="3" width="2" height="10" rx="1"/>
+    <rect x="19.5" y="13" width="4" height="16" rx="2"/>
+  </g>
+  <text x="600" y="270" font-family="Arial, sans-serif" font-size="80" font-weight="bold"
+        fill="white" text-anchor="middle">Dinner Decider</text>
+  <text x="600" y="360" font-family="Arial, sans-serif" font-size="36"
+        fill="white" opacity="0.9" text-anchor="middle">AI 저녁 메뉴 추천 &amp; Fun Tools</text>
+  <text x="600" y="420" font-family="Arial, sans-serif" font-size="28"
+        fill="white" opacity="0.75" text-anchor="middle">AI-powered dinner recommendations · Pet Face Test · Calendar</text>
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="22"
+        fill="white" opacity="0.6" text-anchor="middle">product-builder-algo.workers.dev</text>
+</svg>
