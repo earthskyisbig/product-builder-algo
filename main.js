@@ -111,7 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Placeholder for AI model integration
         setTimeout(() => {
-            const menus = ["Pizza", "Burger", "Sushi", "Pasta", "Tacos", "Korean BBQ"];
+            const menus = [
+                // 한식
+                "김치찌개", "된장찌개", "순두부찌개", "부대찌개", "삼겹살",
+                "비빔밥", "돌솥비빔밥", "냉면", "떡볶이", "순대국밥",
+                "설렁탕", "갈비탕", "삼계탕", "갈비구이", "불고기",
+                "쌈밥", "치킨", "족발", "보쌈", "곱창",
+                // 일식
+                "Sushi", "Ramen", "Tonkatsu", "Tempura", "Udon",
+                // 중식
+                "짜장면", "짬뽕", "탕수육", "마라탕", "Dim Sum",
+                // 양식·기타
+                "Pizza", "Pasta", "Burger", "Steak", "Tacos",
+                "Shawarma", "Pho", "Pad Thai", "Tom Yum", "Fish & Chips"
+            ];
             const randomMenu = menus[Math.floor(Math.random() * menus.length)];
             menuRecommendationContainer.innerHTML = '';
             const resultP = document.createElement('p');
@@ -136,10 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Placeholder for AI model integration
         setTimeout(() => {
             const results = [
-                "Your face resembles a cat's! You must be independent and mysterious.",
-                "You have a dog-like face! You are likely friendly and loyal.",
-                "You have the face of a hamster! You must be storing snacks in your cheeks.",
-                "You resemble a fox! You are probably cunning and clever."
+                "🐱 고양이상! 당신은 고양이상이에요. 차갑게 생겼지만 알고 보면 누구보다 따뜻한 사람! 혼자 있는 걸 즐기고, 좋아하는 사람한테만 애교를 부리는 타입이죠. 고양이처럼 우아하게 살고 있는 당신, 오늘도 멋있어요. 🐾",
+                "🐶 강아지상! 당신은 강아지상이에요. 보는 것만으로도 기분이 좋아지는 얼굴! 주변 사람들이 당신 곁에 있으면 저절로 미소가 지어진다고 해요. 충성심 강하고 에너지 넘치는 당신, 오늘도 세상을 환하게 밝히고 있어요. 🦴",
+                "🐹 햄스터상! 당신은 햄스터상이에요. 두 볼에 간식을 잔뜩 넣고 다니는 귀여운 스타일! 작은 것들에서 행복을 찾고, 포근하고 아늑한 공간을 사랑하죠. 세상에서 제일 귀여운 당신, 누군가 주머니에 쏙 넣어 가고 싶다고 합니다. 🥜",
+                "🦊 여우상! 당신은 여우상이에요. 영리하고 신비로운 분위기의 소유자! 첫인상은 도도하게 느껴질 수 있지만, 가까워지면 누구보다 재미있는 사람이에요. 상황 파악이 빠르고 센스 있는 당신, 어딜 가든 시선을 사로잡아요. ✨",
+                "🐻 곰상! 당신은 곰상이에요. 듬직하고 포근한 인상! 옆에 있으면 왠지 모르게 안심이 되는 그런 존재예요. 겉으로는 무뚝뚝해 보여도 속은 누구보다 다정하고 따뜻한 사람. 당신 같은 친구 한 명쯤 있으면 인생이 든든해져요. 🍯",
+                "🐰 토끼상! 당신은 토끼상이에요. 순하고 귀여운 외모에 청순한 분위기! 하지만 알고 보면 엄청난 에너지와 빠른 두뇌를 가진 숨은 고수예요. 토끼처럼 깡충깡충 뛰어다니며 인생을 즐기는 당신, 오늘도 사랑스럽습니다. 🥕",
+                "🦁 사자상! 당신은 사자상이에요. 카리스마 넘치는 눈빛과 당당한 분위기의 소유자! 주변에서 자연스럽게 리더 역할을 맡게 되는 타입이에요. 강한 것 같아도 소중한 사람들은 끝까지 지키는 의리 있는 당신, 정말 멋있어요. 👑",
+                "🐼 판다상! 당신은 판다상이에요. 보는 것만으로도 힐링이 되는 특별한 얼굴! 먹고, 자고, 놀고... 삶의 본질을 아는 당신은 행복의 달인이에요. 조금 느긋해 보여도 좋아하는 일에는 누구보다 집중하는 반전 매력의 소유자. 🎋"
             ];
             const randomResult = results[Math.floor(Math.random() * results.length)];
             labelContainer.innerHTML = '';
