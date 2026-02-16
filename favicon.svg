@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Fork tines -->
+  <rect x="8.5" y="3" width="1.5" height="10" rx="0.75" fill="#6a82fb"/>
+  <rect x="10.75" y="3" width="1.5" height="10" rx="0.75" fill="#6a82fb"/>
+  <rect x="13" y="3" width="1.5" height="10" rx="0.75" fill="#6a82fb"/>
+  <!-- Fork handle -->
+  <rect x="10.25" y="12" width="2.5" height="17" rx="1.25" fill="#6a82fb"/>
+
+  <!-- Knife blade -->
+  <rect x="20.5" y="3" width="2" height="10" rx="1" fill="#6a82fb"/>
+  <!-- Knife handle -->
+  <rect x="19.5" y="13" width="4" height="16" rx="2" fill="#6a82fb"/>
+</svg>
