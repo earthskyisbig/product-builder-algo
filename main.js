@@ -113,7 +113,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             const menus = ["Pizza", "Burger", "Sushi", "Pasta", "Tacos", "Korean BBQ"];
             const randomMenu = menus[Math.floor(Math.random() * menus.length)];
-            menuRecommendationContainer.innerHTML = `<p class="fade-in">How about ${randomMenu} for dinner tonight?</p>`;
+            menuRecommendationContainer.innerHTML = '';
+            const resultP = document.createElement('p');
+            resultP.className = 'fade-in';
+            resultP.textContent = `How about ${randomMenu} for dinner tonight?`;
+            menuRecommendationContainer.appendChild(resultP);
+
+            const shareText = `오늘 저녁은 ${randomMenu}! 🍽️\nAI가 추천해준 오늘의 메뉴\n👉 https://product-builder-algo.workers.dev`;
+            menuRecommendationContainer.appendChild(createShareButtons(shareText));
             recommendMenuBtn.disabled = false;
         }, 1000);
     };
